@@ -81,6 +81,7 @@ class MessageFieldGenerator : public FieldGenerator {
 
  protected:
   const bool implicit_weak_field_;
+  const bool lazy_pack_field;
   const bool has_required_fields_;
 };
 

@@ -1243,6 +1243,10 @@ void FileGenerator::GenerateLibraryIncludes(io::Printer* p) {
     GOOGLE_CHECK(!options_.opensource_runtime);
     IncludeFile("net/proto2/public/weak_field_map.h", p);
   }
+  if (HasLazyPackFields(file_, options_, &scc_analyzer_)) {
+    GOOGLE_CHECK(options_.opensource_runtime);
+    IncludeFile("net/proto2/public/lazy_packed_field.h", p);
+  }
   if (HasLazyFields(file_, options_, &scc_analyzer_)) {
     GOOGLE_CHECK(!options_.opensource_runtime);
     IncludeFile("net/proto2/public/lazy_field.h", p);

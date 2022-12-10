@@ -206,6 +206,11 @@ bool AllocExpected(const Descriptor* descriptor) {
 
 }  // namespace
 
+bool IsLazyPack(const FieldDescriptor* field, const Options& options,
+            MessageSCCAnalyzer* scc_analyzer) {
+  return field->options().lazy_pack();
+}
+
 bool IsLazy(const FieldDescriptor* field, const Options& options,
             MessageSCCAnalyzer* scc_analyzer) {
   return IsLazilyVerifiedLazy(field, options) ||
@@ -227,7 +232,7 @@ bool IsEagerlyVerifiedLazy(const FieldDescriptor* field, const Options& options,
 
 bool IsLazilyVerifiedLazy(const FieldDescriptor* field,
                           const Options& options) {
-  return false;
+  return field->options().unverified_lazy();
 }
 
 absl::flat_hash_map<absl::string_view, std::string> MessageVars(
@@ -857,6 +862,26 @@ bool IsStringInlined(const FieldDescriptor* descriptor,
   return false;
 }
 
+static bool HasLazyPackFields(const Descriptor* descriptor, const Options& options,
+                          MessageSCCAnalyzer* scc_analyzer) {
+  for (int field_idx = 0; field_idx < descriptor->field_count(); field_idx++) {
+    if (IsLazyPack(descriptor->field(field_idx), options, scc_analyzer)) {
+      return true;
+    }
+  }
+  for (int idx = 0; idx < descriptor->extension_count(); idx++) {
+    if (IsLazyPack(descriptor->extension(idx), options, scc_analyzer)) {
+      return true;
+    }
+  }
+  for (int idx = 0; idx < descriptor->nested_type_count(); idx++) {
+    if (HasLazyPackFields(descriptor->nested_type(idx), options, scc_analyzer)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 static bool HasLazyFields(const Descriptor* descriptor, const Options& options,
                           MessageSCCAnalyzer* scc_analyzer) {
   for (int field_idx = 0; field_idx < descriptor->field_count(); field_idx++) {
@@ -888,6 +913,22 @@ bool HasLazyFields(const FileDescriptor* file, const Options& options,
   }
   for (int field_idx = 0; field_idx < file->extension_count(); field_idx++) {
     if (IsLazy(file->extension(field_idx), options, scc_analyzer)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool HasLazyPackFields(const FileDescriptor* file, const Options& options,
+                   MessageSCCAnalyzer* scc_analyzer) {
+  for (int i = 0; i < file->message_type_count(); i++) {
+    const Descriptor* descriptor(file->message_type(i));
+    if (HasLazyPackFields(descriptor, options, scc_analyzer)) {
+      return true;
+    }
+  }
+  for (int field_idx = 0; field_idx < file->extension_count(); field_idx++) {
+    if (IsLazyPack(file->extension(field_idx), options, scc_analyzer)) {
       return true;
     }
   }

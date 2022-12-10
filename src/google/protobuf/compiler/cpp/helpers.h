@@ -369,6 +369,12 @@ class MessageSCCAnalyzer;
 bool HasLazyFields(const FileDescriptor* file, const Options& options,
                    MessageSCCAnalyzer* scc_analyzer);
 
+bool HasLazyPackFields(const FileDescriptor* file, const Options& options,
+                   MessageSCCAnalyzer* scc_analyzer);
+
+bool IsLazyPack(const FieldDescriptor* field, const Options& options,
+            MessageSCCAnalyzer* scc_analyzer);
+
 // Is the given field a supported lazy field?
 bool IsLazy(const FieldDescriptor* field, const Options& options,
             MessageSCCAnalyzer* scc_analyzer);

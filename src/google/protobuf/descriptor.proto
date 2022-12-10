@@ -615,6 +615,8 @@ message FieldOptions {
   // For Google-internal migration only. Do not use.
   optional bool weak = 10 [default = false];
 
+  optional bool lazy_pack = 16 [default = false];
+
   // The parser stores options it doesn't recognize here. See above.
   repeated UninterpretedOption uninterpreted_option = 999;
 
