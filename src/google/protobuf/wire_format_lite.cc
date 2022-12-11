@@ -39,6 +39,7 @@
 #include <string>
 #include <vector>
 
+#include "google/protobuf/lazy_packed_field.h"
 #include "google/protobuf/stubs/logging.h"
 #include "google/protobuf/stubs/common.h"
 #include "absl/strings/cord.h"
@@ -548,6 +549,16 @@ uint8_t* WireFormatLite::InternalWriteMessage(int field_number,
   target = io::CodedOutputStream::WriteVarint32ToArray(
       static_cast<uint32_t>(cached_size), target);
   return value._InternalSerialize(target, stream);
+}
+
+uint8_t* WireFormatLite::InternalPreWriteMessage(int field_number,
+                                              int cached_size, uint8_t* target,
+                                              io::EpsCopyOutputStream* stream) {
+  target = stream->EnsureSpace(target);
+  target = WriteTagToArray(field_number, WIRETYPE_LENGTH_DELIMITED, target);
+  target = io::CodedOutputStream::WriteVarint32ToArray(
+      static_cast<uint32_t>(cached_size), target);
+  return target;
 }
 
 void WireFormatLite::WriteSubMessageMaybeToArray(

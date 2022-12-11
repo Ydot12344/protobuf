@@ -61,7 +61,11 @@ void SetMessageVariables(
     bool implicit_weak,
     absl::flat_hash_map<absl::string_view, std::string>* variables) {
   SetCommonFieldVariables(descriptor, variables, options);
+  if (IsLazyPack(descriptor, options, nullptr)) {
+    (*variables)["type"] = "TLazyField<" + FieldMessageTypeName(descriptor, options) + ">";
+  } else {
     (*variables)["type"] = FieldMessageTypeName(descriptor, options);
+  }
   variables->insert(
       {"casted_member", ReinterpretCast(absl::StrCat((*variables)["type"], "*"),
                                         (*variables)["field"], implicit_weak)});
@@ -114,7 +118,7 @@ void MessageFieldGenerator::GeneratePrivateMembers(io::Printer* printer) const {
   if (implicit_weak_field_) {
     format("::$proto_ns$::MessageLite* $name$_;\n");
   } else if (lazy_pack_field) {
-    format("TLazyField<$1$> $name$_;\n", FieldMessageTypeName(descriptor_, options_));
+    format("TLazyField<$1$>* $name$_;\n", FieldMessageTypeName(descriptor_, options_));
   } else {
     format("$type$* $name$_;\n");
   }
@@ -185,11 +189,6 @@ void MessageFieldGenerator::GenerateInlineAccessorDefinitions(
       "  return _internal_$name$();\n"
       "}\n");
 
-  std::string cast = "reinterpret_cast";
-
-  if (lazy_pack_field) {
-    cast = "static_cast";
-  }
 
   format(
       "inline void $classname$::unsafe_arena_set_allocated_$name$(\n"
@@ -197,10 +196,13 @@ void MessageFieldGenerator::GenerateInlineAccessorDefinitions(
       "$maybe_prepare_split_message$"
       // If we're not on an arena, free whatever we were holding before.
       // (If we are on arena, we can just forget the earlier pointer.)
-      "  if (GetArenaForAllocation() == nullptr) {\n"
-      "    delete $1$<::$proto_ns$::MessageLite*>($field$);\n"
-      "  }\n",
-      cast);
+      "  if (GetArenaForAllocation() == nullptr) {\n");
+  if (lazy_pack_field) {
+    format("    delete $field$;\n");
+  } else {
+    format("    delete reinterpret_cast<::$proto_ns$::MessageLite*>($field$);\n");
+  }
+  format("  }\n");
   if (implicit_weak_field_) {
     format(
         "  $field$ = reinterpret_cast<::$proto_ns$::MessageLite*>($name$);\n");
@@ -470,6 +472,7 @@ void MessageFieldGenerator::GenerateDestructorCode(io::Printer* printer) const {
     format("delete $cached_split_ptr$->$name$_;\n");
     return;
   }
+  
   format("delete $field$;\n");
 }
 
@@ -478,16 +481,11 @@ void MessageFieldGenerator::GenerateCopyConstructorCode(
   GOOGLE_CHECK(!IsFieldStripped(descriptor_, options_));
 
   Formatter format(printer, variables_);
-  if (lazy_pack_field) {
-    format(
-      "_this->$field$ = from.$field$;\n"
-    );
-  } else {
-    format(
-        "if (from._internal_has_$name$()) {\n"
-        "  _this->$field$ = new $type$(*from.$field$);\n"
-        "}\n");
-  }
+  format(
+      "if (from._internal_has_$name$()) {\n"
+      "  _this->$field$ = new $type$(*from.$field$);\n"
+      "}\n");
+  
 }
 
 void MessageFieldGenerator::GenerateSerializeWithCachedSizesToArray(
@@ -496,10 +494,18 @@ void MessageFieldGenerator::GenerateSerializeWithCachedSizesToArray(
 
   Formatter format(printer, variables_);
   if (descriptor_->type() == FieldDescriptor::TYPE_MESSAGE) {
-    format(
+    if (lazy_pack_field) {
+      format(
         "target = ::$proto_ns$::internal::WireFormatLite::\n"
-        "  InternalWrite$declared_type$($number$, _Internal::$name$(this),\n"
-        "    _Internal::$name$(this).GetCachedSize(), target, stream);\n");
+        "  InternalPreWrite$declared_type$($number$,\n"
+        "    _Internal::$name$(this).GetCachedSize(), target, stream);\n"
+        "target = _Internal::$name$(this).Serialize(target, stream);\n");
+    } else {
+      format(
+          "target = ::$proto_ns$::internal::WireFormatLite::\n"
+          "  InternalWrite$declared_type$($number$, _Internal::$name$(this),\n"
+          "    _Internal::$name$(this).GetCachedSize(), target, stream);\n");
+    }
   } else {
     format(
         "target = stream->EnsureSpace(target);\n"

@@ -87,6 +87,11 @@ namespace internal {
 // This class is really a namespace that contains only static methods.
 class PROTOBUF_EXPORT WireFormatLite {
  public:
+
+ static uint8_t* InternalPreWriteMessage(int field_number,
+                                              int cached_size, uint8_t* target,
+                                              io::EpsCopyOutputStream* stream);
+
   WireFormatLite() = delete;
   // -----------------------------------------------------------------
   // Helper constants and functions related to the format.  These are
