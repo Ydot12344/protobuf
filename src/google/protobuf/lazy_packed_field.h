@@ -1,5 +1,6 @@
 #pragma once
 
+#include "google/protobuf/message.h"
 #include <string>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/io/coded_stream.h>
@@ -9,9 +10,7 @@ class TLazyField {
 public:
     uint8_t* Serialize(uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const {
         if (IsUnpacked_) {
-            std::string tmp;
-            Value_->SerializeToString(&tmp);
-            target = stream->WriteRaw(tmp.data(), tmp.size(), target);    
+            target = Value_->_InternalSerialize(target, stream);
         } else {
             target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);    
         }
@@ -24,9 +23,10 @@ public:
         IsUnpacked_ = false;
     }
 
-    T* Unpack() {
+    T* Unpack() const {
         if (!IsUnpacked_) {
-            Value_->ParseFromString(BinaryData_);    
+            Value_->ParseFromString(BinaryData_); 
+            IsUnpacked_ = true;
         }
 
         return Value_;
@@ -83,36 +83,21 @@ public:
         IsUnpacked_ = other.IsUnpacked_;
     }
 
-    TLazyField(TLazyField<T>&& other) {
-        arena = other.arena;
-        other.arena = nullptr;
-        Value_ = other.Value_;
-        other.Value_ = nullptr;
-        BinaryData_ = std::move(other.BinaryData_);
-        IsUnpacked_ = other.IsUnpacked_;
-    }
+    TLazyField(TLazyField<T>&& other) = default;
 
-    TLazyField<T>& operator=(const TLazyField<T>& other) {
-        TLazyField<T> tmp = other;
-        std::swap(*this, tmp);
-        return *this;
-    }
+    TLazyField<T>& operator=(const TLazyField<T>& other) = default;
 
-    TLazyField<T>& operator=(TLazyField<T>&& other) {
-        TLazyField<T> tmp = std::move(other);
-        std::swap(*this, tmp);
-        return *this;
-    }
+    TLazyField<T>& operator=(TLazyField<T>&& other) = default;
 
     ~TLazyField() {
-        if (!arena && !Value_) {
+        if (!arena && Value_) {
             delete Value_;
         }
     }
 
 private:
     google::protobuf::Arena* arena = nullptr;
-    T* Value_ = nullptr;
-    bool IsUnpacked_ = false;
+    mutable T* Value_ = nullptr;
+    mutable bool IsUnpacked_ = false;
     std::string BinaryData_;
 };
