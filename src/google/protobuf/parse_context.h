@@ -200,6 +200,7 @@ class PROTOBUF_EXPORT EpsCopyInputStream {
     last_tag_minus_1_ = 0;
     return res;
   }
+
   bool EndedAtLimit() const { return last_tag_minus_1_ == 0; }
   bool EndedAtEndOfStream() const { return last_tag_minus_1_ == 1; }
   void SetLastTag(uint32_t tag) { last_tag_minus_1_ = tag - 1; }
@@ -488,6 +489,8 @@ class PROTOBUF_EXPORT ParseContext : public EpsCopyInputStream {
     if (PROTOBUF_PREDICT_FALSE(!ConsumeEndGroup(tag))) return nullptr;
     return ptr;
   }
+
+  std::string GetBinaryMessage(const char** ptr);
 
  private:
   // Out-of-line routine to save space in ParseContext::ParseMessage<T>

@@ -1105,10 +1105,8 @@ void ParseFunctionGenerator::GenerateLengthDelim(Formatter& format,
               field->number());
         } else if (IsLazyPack(field, options_, scc_analyzer_)) {
           format (
-            "size_t size = google::protobuf::internal::ReadSize(&ptr);\n"
-            "std::string buff(ptr, ptr + size);\n"
-            "$msg$_internal_$mutable_field$()->InternalParse(std::move(buff));\n"
-            "ptr += size;\n");
+            "$msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessage(&ptr));\n"
+          );
         } else {
           format(
               "ptr = ctx->ParseMessage($msg$_internal_$mutable_field$(), "

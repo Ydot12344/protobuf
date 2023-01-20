@@ -262,6 +262,22 @@ const char* EpsCopyInputStream::InitFrom(io::ZeroCopyInputStream* zcis) {
   return buffer_;
 }
 
+std::string ParseContext::GetBinaryMessage(const char** ptr) {
+   size_t size = google::protobuf::internal::ReadSize(ptr);
+   
+   std::string buff;
+    buff.reserve(size);
+
+    while (buff.size() < size) {
+      Done(ptr);
+      int read_bytes = std::min((size_t)MaximumReadSize(*ptr), size - buff.size());
+      buff.insert(buff.end(), *ptr, *ptr + read_bytes);
+      *ptr += read_bytes;
+    }
+
+    return buff;
+}
+
 const char* ParseContext::ReadSizeAndPushLimitAndDepth(const char* ptr,
                                                        int* old_limit) {
   int size = ReadSize(&ptr);

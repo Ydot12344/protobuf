@@ -7,22 +7,11 @@
 
 template<class T>
 class TLazyField {
+
+friend ::google::protobuf::MessageLite;
+friend ::google::protobuf::Message;
+
 public:
-    uint8_t* Serialize(uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-        if (IsUnpacked_) {
-            target = Value_->_InternalSerialize(target, stream);
-        } else {
-            target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);    
-        }
-
-        return target;
-    }
-
-    void InternalParse(std::string&& buff) {
-        BinaryData_ = std::move(buff);
-        IsUnpacked_ = false;
-    }
-
     T* Unpack() const {
         if (!IsUnpacked_) {
             Value_->ParseFromString(BinaryData_); 
@@ -93,6 +82,22 @@ public:
         if (!arena && Value_) {
             delete Value_;
         }
+    }
+
+public:
+    uint8_t* Serialize(uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+        if (IsUnpacked_) {
+            target = Value_->_InternalSerialize(target, stream);
+        } else {
+            target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);    
+        }
+
+        return target;
+    }
+
+    void InternalParse(std::string&& buff) {
+        BinaryData_ = std::move(buff);
+        IsUnpacked_ = false;
     }
 
 private:
