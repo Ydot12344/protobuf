@@ -208,7 +208,9 @@ bool AllocExpected(const Descriptor* descriptor) {
 
 bool IsLazyPack(const FieldDescriptor* field, const Options& options,
             MessageSCCAnalyzer* scc_analyzer) {
-  return field->options().lazy_pack();
+  bool res = field->options().lazy_pack();
+  GOOGLE_CHECK(!res || (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE));
+  return res;
 }
 
 bool IsLazy(const FieldDescriptor* field, const Options& options,

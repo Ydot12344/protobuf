@@ -939,12 +939,21 @@ void RepeatedMessageFieldGenerator::GenerateSerializeWithCachedSizesToArray(
         "    n = static_cast<unsigned>(this->_internal_$name$_size());"
         " i < n; i++) {\n");
     if (descriptor_->type() == FieldDescriptor::TYPE_MESSAGE) {
-      format(
-          "  const auto& repfield = this->_internal_$name$(i);\n"
-          "  target = ::$proto_ns$::internal::WireFormatLite::\n"
-          "      InternalWrite$declared_type$($number$, "
-          "repfield, repfield.GetCachedSize(), target, stream);\n"
-          "}\n");
+      if (IsLazyPack(descriptor_, options_, nullptr)) {
+        format(
+        "target = ::$proto_ns$::internal::WireFormatLite::\n"
+        "  InternalPreWrite$declared_type$($number$,\n"
+        "    this->_internal_$name$(i).GetCachedSize(), target, stream);\n"
+        "target = this->_internal_$name$(i).Serialize(target, stream);\n"
+        "}\n");
+      } else {
+        format(
+            "  const auto& repfield = this->_internal_$name$(i);\n"
+            "  target = ::$proto_ns$::internal::WireFormatLite::\n"
+            "      InternalWrite$declared_type$($number$, "
+            "repfield, repfield.GetCachedSize(), target, stream);\n"
+            "}\n");
+      }
     } else {
       format(
           "  target = stream->EnsureSpace(target);\n"
