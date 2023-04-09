@@ -223,6 +223,7 @@ class PROTOBUF_EXPORT IstreamInputStream PROTOBUF_FUTURE_FINAL
   void BackUp(int count) override;
   bool Skip(int count) override;
   int64_t ByteCount() const override;
+  RefCountBuffer GetSharedBuffer() const override;
 
  private:
   class PROTOBUF_EXPORT CopyingIstreamInputStream PROTOBUF_FUTURE_FINAL

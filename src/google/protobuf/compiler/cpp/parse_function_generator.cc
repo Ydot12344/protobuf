@@ -1105,7 +1105,11 @@ void ParseFunctionGenerator::GenerateLengthDelim(Formatter& format,
               field->number());
         } else if (IsLazyPack(field, options_, scc_analyzer_)) {
           format (
-            "$msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessage(&ptr));\n"
+            "if (ctx->IsDerivedFromReleasableBufferStream()) {\n"
+            "  $msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessageAsList(&ptr));\n"
+            "} else {\n"
+            "  $msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessage(&ptr));\n"
+            "}\n"
           );
         } else {
           format(

@@ -122,6 +122,11 @@ namespace io {
 class ZeroCopyInputStream;
 class ZeroCopyOutputStream;
 
+struct RefCountBuffer {
+  std::shared_ptr<uint8_t[]> data;
+  int size;
+};
+
 // Abstract interface similar to an input stream but designed to minimize
 // copying.
 class PROTOBUF_EXPORT ZeroCopyInputStream {
@@ -182,6 +187,13 @@ class PROTOBUF_EXPORT ZeroCopyInputStream {
 
   // Returns the total number of bytes read since this object was created.
   virtual int64_t ByteCount() const = 0;
+
+  virtual RefCountBuffer GetSharedBuffer() const {
+    return {
+      .data = NULL,
+      .size = 0
+    };
+  }
 
 };
 

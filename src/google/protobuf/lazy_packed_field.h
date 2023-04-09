@@ -4,9 +4,17 @@
 #include <string>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/io/coded_stream.h>
+#include <google/protobuf/parse_context.h>
+
+#include <optional>
 
 template<class T>
 class TLazyField {
+
+enum class EBinaryDataType {
+    STRING = 0,
+    LIST_BUFFERS = 1
+};
 
 friend ::google::protobuf::MessageLite;
 friend ::google::protobuf::Message;
@@ -14,7 +22,19 @@ friend ::google::protobuf::Message;
 public:
     T* Unpack() const {
         if (!IsUnpacked_) {
-            Value_->ParseFromString(BinaryData_); 
+            if (BinaryDataType_ == EBinaryDataType::STRING) {
+                Value_->ParseFromString(BinaryData_);
+            } else {
+                // TODO: Mb fix?
+                std::string tmp;
+                for (const auto& buff : BinaryDataList_) {
+                    tmp += std::string(
+                        buff.buffer.data.get() + buff.start_offset,
+                        buff.buffer.data.get() + buff.buffer.size - buff.end_offset
+                    );
+                }
+                Value_->ParseFromString(tmp);
+            }
             IsUnpacked_ = true;
         }
 
@@ -29,15 +49,22 @@ public:
         IsUnpacked_ = false;
         if (Value_) Value_->Clear();
         BinaryData_.clear();
+        BinaryDataList_.clear();
+        BinaryDataType_ = EBinaryDataType::STRING;
+        BinarySize_.reset();
     }
 
     size_t ByteSizeLong() const {
-        if (!IsUnpacked_) return BinaryData_.size();
+        if (!IsUnpacked_) {
+            return GetBinarySize();
+        }
         return Value_->ByteSizeLong();
     }
 
     int GetCachedSize() const {
-        if (!IsUnpacked_) return BinaryData_.size();
+        if (!IsUnpacked_) {
+            return GetBinarySize();
+        }
         return Value_->GetCachedSize();
     }
 
@@ -69,6 +96,10 @@ public:
         arena = other.arena;
         Value_ = google::protobuf::Arena::CreateMessage<T>(arena);
         *Value_ = *other.Value_;
+        BinaryData_ = other.BinaryData_;
+        BinaryDataList_ = other.BinaryDataList_;
+        BinaryDataType_ = other.BinaryDataType_;
+        BinarySize_ = other.BinarySize_;
         IsUnpacked_ = other.IsUnpacked_;
     }
 
@@ -89,7 +120,19 @@ public:
         if (IsUnpacked_) {
             target = Value_->_InternalSerialize(target, stream);
         } else {
-            target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);    
+            if (BinaryDataType_ == EBinaryDataType::STRING) {
+                target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);
+            } else {
+                std::string tmp;
+                for (const auto& buff : BinaryDataList_) {
+                    tmp += std::string(
+                        buff.buffer.data.get() + buff.start_offset,
+                        buff.buffer.data.get() + buff.buffer.size - buff.end_offset
+                    );
+                }
+                std::cerr << "serialize should be failed" << std::endl;
+                target = stream->WriteRaw(tmp.c_str(), tmp.size(), target);
+            }
         }
 
         return target;
@@ -97,12 +140,41 @@ public:
 
     void InternalParse(std::string&& buff) {
         BinaryData_ = std::move(buff);
+        BinaryDataType_ = EBinaryDataType::STRING;
+        IsUnpacked_ = false;
+    }
+
+    void InternalParse(std::list<google::protobuf::internal::TLazyRefBuffer> data) {
+        BinaryDataList_ = std::move(data);
+        BinaryDataType_ = EBinaryDataType::LIST_BUFFERS;
         IsUnpacked_ = false;
     }
 
 private:
+    size_t GetBinarySize() const {
+        if (BinarySize_) {
+            return *BinarySize_;
+        }
+
+        if (BinaryDataType_ == EBinaryDataType::STRING) {
+            BinarySize_ = BinaryData_.size();
+        } else {
+            size_t tmp = 0;
+            for (const auto& buff : BinaryDataList_) {
+                tmp += (buff.buffer.size - (buff.start_offset + buff.end_offset));
+            }
+            BinarySize_ = tmp;
+        }
+
+        return *BinarySize_;
+    }
+
     google::protobuf::Arena* arena = nullptr;
     mutable T* Value_ = nullptr;
     mutable bool IsUnpacked_ = false;
+
+    EBinaryDataType BinaryDataType_;
+    std::list<google::protobuf::internal::TLazyRefBuffer> BinaryDataList_;
     std::string BinaryData_;
+    mutable absl::optional<size_t> BinarySize_;
 };

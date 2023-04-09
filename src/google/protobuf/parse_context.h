@@ -33,6 +33,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include <list>
 #include <string>
 #include <type_traits>
 
@@ -63,6 +64,12 @@ class DescriptorPool;
 class MessageFactory;
 
 namespace internal {
+
+struct TLazyRefBuffer {
+  io::RefCountBuffer buffer;
+  size_t start_offset = 0;
+  size_t end_offset = 0;
+};
 
 // Template code below needs to know about the existence of these functions.
 PROTOBUF_EXPORT void WriteVarint(uint32_t num, uint64_t val, std::string* s);
@@ -220,6 +227,18 @@ class PROTOBUF_EXPORT EpsCopyInputStream {
   // Returns true if more data is available, if false is returned one has to
   // call Done for further checks.
   bool DataAvailable(const char* ptr) { return ptr < limit_end_; }
+
+  bool IsDerivedFromReleasableBufferStream() const;
+
+  io::RefCountBuffer GetSharedBuffer(const char* p) const {
+    if (p >= buffer_ && p <= buffer_ + 32) {
+      io::RefCountBuffer buffer;
+      buffer.data.reset(new uint8_t[kSlopBytes + size_]);
+      memcpy(buffer.data.get(), buffer_, kSlopBytes + size_);
+      buffer.size = kSlopBytes + size_;
+    }
+    return zcis_->GetSharedBuffer();
+  }
 
  protected:
   // Returns true is limit (either an explicit limit or end of stream) is
@@ -491,6 +510,7 @@ class PROTOBUF_EXPORT ParseContext : public EpsCopyInputStream {
   }
 
   std::string GetBinaryMessage(const char** ptr);
+  std::list<TLazyRefBuffer> GetBinaryMessageAsList(const char** ptr);
 
  private:
   // Out-of-line routine to save space in ParseContext::ParseMessage<T>

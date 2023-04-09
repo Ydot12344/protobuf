@@ -254,6 +254,10 @@ bool IstreamInputStream::Next(const void** data, int* size) {
   return impl_.Next(data, size);
 }
 
+RefCountBuffer IstreamInputStream::GetSharedBuffer() const {
+  return impl_.GetSharedBuffer();
+}
+
 void IstreamInputStream::BackUp(int count) { impl_.BackUp(count); }
 
 bool IstreamInputStream::Skip(int count) { return impl_.Skip(count); }

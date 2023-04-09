@@ -286,8 +286,17 @@ int64_t CopyingInputStreamAdaptor::ByteCount() const {
   return position_ - backup_bytes_;
 }
 
+RefCountBuffer CopyingInputStreamAdaptor::GetSharedBuffer() const {
+  need_reset_buffer_ = true;
+  return {
+    .data = buffer_,
+    .size = buffer_size_
+  };
+}
+
 void CopyingInputStreamAdaptor::AllocateBufferIfNeeded() {
-  if (buffer_.get() == NULL) {
+  if (buffer_.get() == NULL || need_reset_buffer_) {
+    need_reset_buffer_ = false;
     buffer_.reset(new uint8_t[buffer_size_]);
   }
 }

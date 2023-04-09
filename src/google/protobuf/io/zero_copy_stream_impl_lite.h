@@ -234,6 +234,7 @@ class PROTOBUF_EXPORT CopyingInputStreamAdaptor : public ZeroCopyInputStream {
   void BackUp(int count) override;
   bool Skip(int count) override;
   int64_t ByteCount() const override;
+  RefCountBuffer GetSharedBuffer() const override;
 
  private:
   // Insures that buffer_ is not NULL.
@@ -254,7 +255,7 @@ class PROTOBUF_EXPORT CopyingInputStreamAdaptor : public ZeroCopyInputStream {
 
   // Data is read into this buffer.  It may be NULL if no buffer is currently
   // in use.  Otherwise, it points to an array of size buffer_size_.
-  std::unique_ptr<uint8_t[]> buffer_;
+  std::shared_ptr<uint8_t[]> buffer_;
   const int buffer_size_;
 
   // Number of valid bytes currently in the buffer (i.e. the size last
@@ -265,6 +266,8 @@ class PROTOBUF_EXPORT CopyingInputStreamAdaptor : public ZeroCopyInputStream {
   // BackUp().  These need to be returned again.
   // 0 <= backup_bytes_ <= buffer_used_
   int backup_bytes_;
+
+  mutable bool need_reset_buffer_ = false;
 };
 
 // ===================================================================

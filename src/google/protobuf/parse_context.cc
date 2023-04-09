@@ -31,10 +31,13 @@
 #include "google/protobuf/parse_context.h"
 
 #include "absl/strings/string_view.h"
+#include "google/protobuf/io/zero_copy_stream.h"
+#include "google/protobuf/io/zero_copy_stream_impl.h"
 #include "google/protobuf/message_lite.h"
 #include "google/protobuf/repeated_field.h"
 #include "google/protobuf/wire_format_lite.h"
 #include "utf8_validity.h"
+#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 
 
 // Must be included last.
@@ -232,6 +235,10 @@ const char* EpsCopyInputStream::AppendStringFallback(const char* ptr, int size,
                     [str](const char* p, int s) { str->append(p, s); });
 }
 
+bool EpsCopyInputStream::IsDerivedFromReleasableBufferStream() const {
+  return dynamic_cast<io::IstreamInputStream*>(zcis_) != nullptr;
+}
+
 
 const char* EpsCopyInputStream::InitFrom(io::ZeroCopyInputStream* zcis) {
   zcis_ = zcis;
@@ -263,19 +270,40 @@ const char* EpsCopyInputStream::InitFrom(io::ZeroCopyInputStream* zcis) {
 }
 
 std::string ParseContext::GetBinaryMessage(const char** ptr) {
-   size_t size = google::protobuf::internal::ReadSize(ptr);
+  size_t size = google::protobuf::internal::ReadSize(ptr);
    
-   std::string buff;
-    buff.reserve(size);
+  std::string buff;
+  buff.reserve(size);
 
-    while (buff.size() < size) {
-      Done(ptr);
-      int read_bytes = std::min((size_t)MaximumReadSize(*ptr), size - buff.size());
-      buff.insert(buff.end(), *ptr, *ptr + read_bytes);
-      *ptr += read_bytes;
+  while (buff.size() < size) {
+    Done(ptr);
+    int read_bytes = std::min((size_t)MaximumReadSize(*ptr), size - buff.size());
+    buff.insert(buff.end(), *ptr, *ptr + read_bytes);
+    *ptr += read_bytes;
+  }
+
+  return buff;
+}
+
+std::list<TLazyRefBuffer> ParseContext::GetBinaryMessageAsList(const char** ptr) {
+  std::list<TLazyRefBuffer> result;
+  size_t size = google::protobuf::internal::ReadSize(ptr);
+  size_t get_data_size = 0;
+  while (get_data_size != size) {
+    Done(ptr);
+    io::RefCountBuffer buffer = GetSharedBuffer(*ptr);
+    TLazyRefBuffer list_buffer;
+    list_buffer.buffer = buffer;
+    list_buffer.start_offset = (reinterpret_cast<const uint8_t*>(*ptr) - buffer.data.get());
+    if (buffer.size - list_buffer.start_offset > (size - get_data_size)) {
+      list_buffer.end_offset = buffer.size - list_buffer.start_offset - (size - get_data_size);
     }
+    get_data_size += buffer.size - list_buffer.start_offset - list_buffer.end_offset;
+    result.push_back(list_buffer);
+    *ptr = reinterpret_cast<const char*>(buffer.data.get()) + buffer.size - list_buffer.end_offset;
+  }
 
-    return buff;
+  return result;
 }
 
 const char* ParseContext::ReadSizeAndPushLimitAndDepth(const char* ptr,
