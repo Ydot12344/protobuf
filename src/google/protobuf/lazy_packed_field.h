@@ -25,7 +25,9 @@ public:
             if (BinaryDataType_ == EBinaryDataType::STRING) {
                 Value_->ParseFromString(BinaryData_);
             } else {
-                // TODO: Mb fix?
+                // TODO: ???
+                // create stream from list<RefCountBuffers> + add ParseFromListBuffers() to avoid copying
+                // optional extra task !!!
                 std::string tmp;
                 for (const auto& buff : BinaryDataList_) {
                     tmp += std::string(
@@ -123,6 +125,7 @@ public:
             if (BinaryDataType_ == EBinaryDataType::STRING) {
                 target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);
             } else {
+                // TODO: Upgrade EpsCopyOutputStream for write list<RefCountBuffer>
                 std::string tmp;
                 for (const auto& buff : BinaryDataList_) {
                     tmp += std::string(
@@ -130,7 +133,6 @@ public:
                         buff.buffer.data.get() + buff.buffer.size - buff.end_offset
                     );
                 }
-                std::cerr << "serialize should be failed" << std::endl;
                 target = stream->WriteRaw(tmp.c_str(), tmp.size(), target);
             }
         }
