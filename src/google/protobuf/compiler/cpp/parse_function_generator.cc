@@ -1106,7 +1106,7 @@ void ParseFunctionGenerator::GenerateLengthDelim(Formatter& format,
         } else if (IsLazyPack(field, options_, scc_analyzer_)) {
           format (
             "if (ctx->IsDerivedFromReleasableBufferStream()) {\n"
-            "  $msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessageAsList(&ptr));\n"
+            "  $msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessageAsBuffersArray(&ptr));\n"
             "} else {\n"
             "  $msg$_internal_$mutable_field$()->InternalParse(ctx->GetBinaryMessage(&ptr));\n"
             "}\n"

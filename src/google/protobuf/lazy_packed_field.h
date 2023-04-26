@@ -23,7 +23,7 @@ public:
     T* Unpack() const {
         if (!IsUnpacked_) {
             if (BinaryDataType_ == EBinaryDataType::STRING) {
-                Value_->ParseFromString(BinaryData_);
+                Value_->ParseFromString(*BinaryData_);
             } else {
                 // TODO: ???
                 // create stream from list<RefCountBuffers> + add ParseFromListBuffers() to avoid copying
@@ -50,7 +50,7 @@ public:
     void Clear() {
         IsUnpacked_ = false;
         if (Value_) Value_->Clear();
-        BinaryData_.clear();
+        BinaryData_->clear();
         BinaryDataList_.clear();
         BinaryDataType_ = EBinaryDataType::STRING;
         BinarySize_.reset();
@@ -75,7 +75,7 @@ public:
             Unpack()->MergeFrom(*from.Value_);
         } else {
             T tmp;
-            tmp.ParseFromString(from.BinaryData_);
+            tmp.ParseFromString(*from.BinaryData_);
             Unpack()->MergeFrom(tmp);
         }
     }
@@ -85,6 +85,7 @@ public:
     , IsUnpacked_(true)
     {
         Value_ = google::protobuf::Arena::CreateMessage<T>(arena);
+        BinaryData_ = std::make_shared<std::string>("");
     }
 
     TLazyField(google::protobuf::Arena* arena)
@@ -92,6 +93,7 @@ public:
     {
         IsUnpacked_ = true;
         Value_ = google::protobuf::Arena::CreateMessage<T>(arena);
+        BinaryData_ = std::make_shared<std::string>("");
     }
 
     TLazyField(const TLazyField<T>& other) {
@@ -123,7 +125,7 @@ public:
             target = Value_->_InternalSerialize(target, stream);
         } else {
             if (BinaryDataType_ == EBinaryDataType::STRING) {
-                target = stream->WriteRaw(BinaryData_.c_str(), BinaryData_.size(), target);
+                target = stream->WriteRaw(BinaryData_->c_str(), BinaryData_->size(), target);
             } else {
                 // TODO: Upgrade EpsCopyOutputStream for write list<RefCountBuffer>
                 std::string tmp;
@@ -141,12 +143,12 @@ public:
     }
 
     void InternalParse(std::string&& buff) {
-        BinaryData_ = std::move(buff);
+        BinaryData_ = std::make_shared<std::string>(std::move(buff));
         BinaryDataType_ = EBinaryDataType::STRING;
         IsUnpacked_ = false;
     }
 
-    void InternalParse(std::list<google::protobuf::internal::TLazyRefBuffer> data) {
+    void InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data) {
         BinaryDataList_ = std::move(data);
         BinaryDataType_ = EBinaryDataType::LIST_BUFFERS;
         IsUnpacked_ = false;
@@ -159,7 +161,7 @@ private:
         }
 
         if (BinaryDataType_ == EBinaryDataType::STRING) {
-            BinarySize_ = BinaryData_.size();
+            BinarySize_ = BinaryData_->size();
         } else {
             size_t tmp = 0;
             for (const auto& buff : BinaryDataList_) {
@@ -176,7 +178,7 @@ private:
     mutable bool IsUnpacked_ = false;
 
     EBinaryDataType BinaryDataType_;
-    std::list<google::protobuf::internal::TLazyRefBuffer> BinaryDataList_;
-    std::string BinaryData_;
+    std::vector<google::protobuf::internal::TLazyRefBuffer> BinaryDataList_;
+    std::shared_ptr<std::string> BinaryData_;
     mutable absl::optional<size_t> BinarySize_;
 };

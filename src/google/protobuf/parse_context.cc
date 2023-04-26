@@ -285,8 +285,8 @@ std::string ParseContext::GetBinaryMessage(const char** ptr) {
   return buff;
 }
 
-std::list<TLazyRefBuffer> ParseContext::GetBinaryMessageAsList(const char** ptr) {
-  std::list<TLazyRefBuffer> result;
+std::vector<TLazyRefBuffer> ParseContext::GetBinaryMessageAsBuffersArray(const char** ptr) {
+  std::vector<TLazyRefBuffer> result;
   size_t size = google::protobuf::internal::ReadSize(ptr);
   size_t get_data_size = 0;
   while (get_data_size != size) {
