@@ -62,7 +62,7 @@ void SetMessageVariables(
     absl::flat_hash_map<absl::string_view, std::string>* variables) {
   SetCommonFieldVariables(descriptor, variables, options);
   if (IsLazyPack(descriptor, options, nullptr)) {
-    (*variables)["type"] = "TLazyField<" + FieldMessageTypeName(descriptor, options) + ">";
+    (*variables)["type"] = "::PROTOBUF_NAMESPACE_ID::TLazyField<" + FieldMessageTypeName(descriptor, options) + ">";
   } else {
     (*variables)["type"] = FieldMessageTypeName(descriptor, options);
   }
@@ -118,7 +118,7 @@ void MessageFieldGenerator::GeneratePrivateMembers(io::Printer* printer) const {
   if (implicit_weak_field_) {
     format("::$proto_ns$::MessageLite* $name$_;\n");
   } else if (lazy_pack_field) {
-    format("TLazyField<$1$>* $name$_;\n", FieldMessageTypeName(descriptor_, options_));
+    format("::PROTOBUF_NAMESPACE_ID::TLazyField<$1$>* $name$_;\n", FieldMessageTypeName(descriptor_, options_));
   } else {
     format("$type$* $name$_;\n");
   }

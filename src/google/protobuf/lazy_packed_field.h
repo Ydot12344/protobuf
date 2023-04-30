@@ -8,6 +8,9 @@
 
 #include <optional>
 
+namespace google {
+namespace protobuf {
+
 /// @brief store raw binary data without parsing
 /// and provide Unpack method to deserialize data to Message.
 /// @tparam T Message which will be stored in raw form
@@ -259,3 +262,6 @@ size_t TLazyField<T>::GetBinarySize() const {
 
     return *BinarySize_;
 }
+
+} // namespace protobuf
+} // namespace google
