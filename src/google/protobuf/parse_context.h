@@ -65,8 +65,17 @@ class MessageFactory;
 
 namespace internal {
 
-struct TLazyRefBuffer {
-  io::RefCountBuffer buffer;
+struct TLazyRefBuffer : public io::RefCountBuffer {
+  TLazyRefBuffer() = default;
+  TLazyRefBuffer(const io::RefCountBuffer& other) {
+    data = other.data;
+    size = other.size;
+  }
+  TLazyRefBuffer(const io::RefCountBuffer&& other) {
+    data = std::move(other.data);
+    size = other.size;
+  }
+
   size_t start_offset = 0;
   size_t end_offset = 0;
 };

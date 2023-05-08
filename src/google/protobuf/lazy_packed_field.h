@@ -47,10 +47,6 @@ public:
     
     int GetCachedSize() const override;
     
-    const char* _InternalParse(const char* ptr, internal::ParseContext* ctx) override;
-    
-    uint8_t* _InternalSerialize(uint8_t* ptr, io::EpsCopyOutputStream* stream) const override;
-    
     const Descriptor* GetDescriptor() const;
     
     const Reflection* GetReflection() const;
@@ -59,6 +55,8 @@ public:
     
     void MergeFrom(const TLazyField<T>& from);
 private:
+    const char* _InternalParse(const char* ptr, internal::ParseContext* ctx) override;
+    uint8_t* _InternalSerialize(uint8_t* ptr, io::EpsCopyOutputStream* stream) const override;
     void InternalParse(std::string&& buff);
     void InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data);
     size_t GetBinarySize() const;
@@ -174,8 +172,8 @@ uint8_t* TLazyField<T>::_InternalSerialize(uint8_t* ptr, io::EpsCopyOutputStream
             ptr = stream->WriteRaw(BinaryData_->c_str(), BinaryData_->size(), ptr);
         } else {
             for (const auto& buff : BinaryDataList_) {
-                uint8_t* data_start = buff.buffer.data.get() + buff.start_offset;
-                uint8_t* data_end = buff.buffer.data.get() + buff.buffer.size - buff.end_offset;                
+                uint8_t* data_start = buff.data.get() + buff.start_offset;
+                uint8_t* data_end = buff.data.get() + buff.size - buff.end_offset;                
                 ptr = stream->WriteRaw(data_start, data_end - data_start, ptr);
             }
         }
@@ -196,8 +194,8 @@ T* TLazyField<T>::Unpack() const {
             std::string tmp;
             for (const auto& buff : BinaryDataList_) {
                 tmp += std::string(
-                    buff.buffer.data.get() + buff.start_offset,
-                    buff.buffer.data.get() + buff.buffer.size - buff.end_offset
+                    buff.data.get() + buff.start_offset,
+                    buff.data.get() + buff.size - buff.end_offset
                 );
             }
             Value_->ParseFromString(tmp);
@@ -282,7 +280,7 @@ size_t TLazyField<T>::GetBinarySize() const {
     } else {
         size_t tmp = 0;
         for (const auto& buff : BinaryDataList_) {
-            tmp += (buff.buffer.size - (buff.start_offset + buff.end_offset));
+            tmp += (buff.size - (buff.start_offset + buff.end_offset));
         }
         BinarySize_ = tmp;
     }

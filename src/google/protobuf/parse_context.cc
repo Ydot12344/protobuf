@@ -293,7 +293,7 @@ std::vector<TLazyRefBuffer> ParseContext::GetBinaryMessageAsBuffersArray(const c
     Done(ptr);
     io::RefCountBuffer buffer = GetSharedBuffer(*ptr);
     TLazyRefBuffer list_buffer;
-    list_buffer.buffer = buffer;
+    list_buffer = buffer;
     list_buffer.start_offset = (reinterpret_cast<const uint8_t*>(*ptr) - buffer.data.get());
     if (buffer.size - list_buffer.start_offset > (size - get_data_size)) {
       list_buffer.end_offset = buffer.size - list_buffer.start_offset - (size - get_data_size);

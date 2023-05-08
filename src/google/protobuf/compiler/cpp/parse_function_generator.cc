@@ -1105,7 +1105,7 @@ void ParseFunctionGenerator::GenerateLengthDelim(Formatter& format,
               field->number());
         } else if (IsLazyPack(field, options_, scc_analyzer_)) {
           format (
-            "ptr = $msg$_internal_$mutable_field$()->_InternalParse(ptr, ctx);\n"
+            "ptr = static_cast<MessageLite*>($msg$_internal_$mutable_field$())->_InternalParse(ptr, ctx);\n"
           );
         } else {
           format(
