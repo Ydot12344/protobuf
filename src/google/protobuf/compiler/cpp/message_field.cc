@@ -197,11 +197,8 @@ void MessageFieldGenerator::GenerateInlineAccessorDefinitions(
       // If we're not on an arena, free whatever we were holding before.
       // (If we are on arena, we can just forget the earlier pointer.)
       "  if (GetArenaForAllocation() == nullptr) {\n");
-  if (lazy_pack_field) {
-    format("    delete $field$;\n");
-  } else {
-    format("    delete reinterpret_cast<::$proto_ns$::MessageLite*>($field$);\n");
-  }
+
+  format("    delete reinterpret_cast<::$proto_ns$::MessageLite*>($field$);\n");
   format("  }\n");
   if (implicit_weak_field_) {
     format(
@@ -494,18 +491,11 @@ void MessageFieldGenerator::GenerateSerializeWithCachedSizesToArray(
 
   Formatter format(printer, variables_);
   if (descriptor_->type() == FieldDescriptor::TYPE_MESSAGE) {
-    if (lazy_pack_field) {
-      format(
-        "target = ::$proto_ns$::internal::WireFormatLite::\n"
-        "  InternalPreWrite$declared_type$($number$,\n"
-        "    _Internal::$name$(this).GetCachedSize(), target, stream);\n"
-        "target = _Internal::$name$(this).Serialize(target, stream);\n");
-    } else {
-      format(
-          "target = ::$proto_ns$::internal::WireFormatLite::\n"
-          "  InternalWrite$declared_type$($number$, _Internal::$name$(this),\n"
-          "    _Internal::$name$(this).GetCachedSize(), target, stream);\n");
-    }
+    format(
+      "target = ::$proto_ns$::internal::WireFormatLite::\n"
+      "  InternalWrite$declared_type$($number$, _Internal::$name$(this),\n"
+      "    _Internal::$name$(this).GetCachedSize(), target, stream);\n"
+    );
   } else {
     format(
         "target = stream->EnsureSpace(target);\n"
@@ -939,21 +929,13 @@ void RepeatedMessageFieldGenerator::GenerateSerializeWithCachedSizesToArray(
         "    n = static_cast<unsigned>(this->_internal_$name$_size());"
         " i < n; i++) {\n");
     if (descriptor_->type() == FieldDescriptor::TYPE_MESSAGE) {
-      if (IsLazyPack(descriptor_, options_, nullptr)) {
-        format(
-        "target = ::$proto_ns$::internal::WireFormatLite::\n"
-        "  InternalPreWrite$declared_type$($number$,\n"
-        "    this->_internal_$name$(i).GetCachedSize(), target, stream);\n"
-        "target = this->_internal_$name$(i).Serialize(target, stream);\n"
-        "}\n");
-      } else {
-        format(
-            "  const auto& repfield = this->_internal_$name$(i);\n"
-            "  target = ::$proto_ns$::internal::WireFormatLite::\n"
-            "      InternalWrite$declared_type$($number$, "
-            "repfield, repfield.GetCachedSize(), target, stream);\n"
-            "}\n");
-      }
+      format(
+          "  const auto& repfield = this->_internal_$name$(i);\n"
+          "  target = ::$proto_ns$::internal::WireFormatLite::\n"
+          "      InternalWrite$declared_type$($number$, "
+          "repfield, repfield.GetCachedSize(), target, stream);\n"
+          "}\n"
+      );
     } else {
       format(
           "  target = stream->EnsureSpace(target);\n"

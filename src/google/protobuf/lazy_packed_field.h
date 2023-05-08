@@ -1,11 +1,13 @@
 #pragma once
 
 #include "google/protobuf/message.h"
-#include <string>
+#include "google/protobuf/port.h"
+#include "google/protobuf/message_lite.h"
 #include <google/protobuf/arena.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/parse_context.h>
 
+#include <string>
 #include <optional>
 
 namespace google {
@@ -15,7 +17,7 @@ namespace protobuf {
 /// and provide Unpack method to deserialize data to Message.
 /// @tparam T Message which will be stored in raw form
 template<class T>
-class TLazyField {
+class TLazyField : public MessageLite {
 
 enum class EBinaryDataType {
     STRING = 0,
@@ -30,24 +32,39 @@ public:
 
     TLazyField(TLazyField<T>&& other);
     TLazyField<T>& operator=(TLazyField<T>&& other);
+    ~TLazyField();
 
-    uint8_t* Serialize(uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const;
+    std::string GetTypeName() const override;
+    TLazyField<T>* New(Arena* arena) const override;
+    
+    void Clear() override;
+    
+    bool IsInitialized() const override;
+    
+    void CheckTypeAndMergeFrom(const MessageLite& other) override;
+    
+    size_t ByteSizeLong() const override;
+    
+    int GetCachedSize() const override;
+    
+    const char* _InternalParse(const char* ptr, internal::ParseContext* ctx) override;
+    
+    uint8_t* _InternalSerialize(uint8_t* ptr, io::EpsCopyOutputStream* stream) const override;
+    
+    const Descriptor* GetDescriptor() const;
+    
+    const Reflection* GetReflection() const;
+    
+    T* Unpack() const;
+    
+    void MergeFrom(const TLazyField<T>& from);
+private:
     void InternalParse(std::string&& buff);
     void InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data);
-    T* Unpack() const;
-
-    bool IsInitialized() const;
-    void Clear();
-    size_t ByteSizeLong() const;
-    int GetCachedSize() const;
-    void MergeFrom(const TLazyField<T>& from);
-
-    ~TLazyField();
-private:
     size_t GetBinarySize() const;
 
 private:
-    google::protobuf::Arena* arena = nullptr;
+    mutable google::protobuf::Arena* arena = nullptr;
     mutable T* Value_ = nullptr;
     mutable bool IsUnpacked_ = false;
 
@@ -139,22 +156,32 @@ TLazyField<T>& TLazyField<T>::operator=(const TLazyField<T>& other) {
 }
 
 template<class T>
-uint8_t* TLazyField<T>::Serialize(uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+const char* TLazyField<T>::_InternalParse(const char* ptr, internal::ParseContext* ctx) {
+    if (ctx->IsDerivedFromReleasableBufferStream()) {
+        InternalParse(ctx->GetBinaryMessageAsBuffersArray(&ptr));
+    } else {
+        InternalParse(ctx->GetBinaryMessage(&ptr));
+    }
+    return ptr;
+}
+
+template<class T>
+uint8_t* TLazyField<T>::_InternalSerialize(uint8_t* ptr, io::EpsCopyOutputStream* stream) const {
     if (IsUnpacked_) {
-        target = Value_->_InternalSerialize(target, stream);
+        ptr = Value_->_InternalSerialize(ptr, stream);
     } else {
         if (BinaryDataType_ == EBinaryDataType::STRING) {
-            target = stream->WriteRaw(BinaryData_->c_str(), BinaryData_->size(), target);
+            ptr = stream->WriteRaw(BinaryData_->c_str(), BinaryData_->size(), ptr);
         } else {
             for (const auto& buff : BinaryDataList_) {
                 uint8_t* data_start = buff.buffer.data.get() + buff.start_offset;
                 uint8_t* data_end = buff.buffer.data.get() + buff.buffer.size - buff.end_offset;                
-                target = stream->WriteRaw(data_start, data_end - data_start, target);
+                ptr = stream->WriteRaw(data_start, data_end - data_start, ptr);
             }
         }
     }
 
-    return target;
+    return ptr;
 }
 
 template<class T>
@@ -261,6 +288,34 @@ size_t TLazyField<T>::GetBinarySize() const {
     }
 
     return *BinarySize_;
+}
+
+template<class T>
+const Descriptor* TLazyField<T>::GetDescriptor() const {
+    return T::GetDescriptor();
+}
+
+template<class T>
+const Reflection* TLazyField<T>::GetReflection() const {
+    return T::GetReflection();
+}
+
+template<class T>
+std::string TLazyField<T>::GetTypeName() const {
+    return GetDescriptor()->full_name();
+}
+
+template<class T>
+TLazyField<T>* TLazyField<T>::New(Arena* arena) const {
+    this->arena = arena;
+    return CreateMaybeMessage<TLazyField<T>>(arena);
+}
+
+template<class T>
+void TLazyField<T>::CheckTypeAndMergeFrom(const MessageLite& other) {
+    MergeFrom(
+        *internal::DownCast<const TLazyField<T>*>(&other)
+    );
 }
 
 } // namespace protobuf
