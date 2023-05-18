@@ -104,6 +104,10 @@ class FieldOptions extends \Google\Protobuf\Internal\Message
      */
     protected $weak = null;
     /**
+     * Generated from protobuf field <code>optional bool lazy_pack = 16 [default = false];</code>
+     */
+    protected $lazy_pack = null;
+    /**
      * The parser stores options it doesn't recognize here. See above.
      *
      * Generated from protobuf field <code>repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;</code>
@@ -176,6 +180,7 @@ class FieldOptions extends \Google\Protobuf\Internal\Message
      *           is a formalization for deprecating fields.
      *     @type bool $weak
      *           For Google-internal migration only. Do not use.
+     *     @type bool $lazy_pack
      *     @type array<\Google\Protobuf\Internal\UninterpretedOption>|\Google\Protobuf\Internal\RepeatedField $uninterpreted_option
      *           The parser stores options it doesn't recognize here. See above.
      * }
@@ -525,6 +530,38 @@ class FieldOptions extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->weak = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional bool lazy_pack = 16 [default = false];</code>
+     * @return bool
+     */
+    public function getLazyPack()
+    {
+        return isset($this->lazy_pack) ? $this->lazy_pack : false;
+    }
+
+    public function hasLazyPack()
+    {
+        return isset($this->lazy_pack);
+    }
+
+    public function clearLazyPack()
+    {
+        unset($this->lazy_pack);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional bool lazy_pack = 16 [default = false];</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setLazyPack($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->lazy_pack = $var;
 
         return $this;
     }

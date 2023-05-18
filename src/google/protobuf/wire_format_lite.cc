@@ -39,7 +39,6 @@
 #include <string>
 #include <vector>
 
-#include "google/protobuf/lazy_packed_field.h"
 #include "google/protobuf/stubs/logging.h"
 #include "google/protobuf/stubs/common.h"
 #include "absl/strings/cord.h"

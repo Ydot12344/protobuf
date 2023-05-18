@@ -103,9 +103,9 @@ MessageFieldGenerator::MessageFieldGenerator(const FieldDescriptor* descriptor,
                                              const Options& options,
                                              MessageSCCAnalyzer* scc_analyzer)
     : FieldGenerator(descriptor, options),
-      lazy_pack_field(IsLazyPack(descriptor, options, scc_analyzer)),
       implicit_weak_field_(
           IsImplicitWeakField(descriptor, options, scc_analyzer)),
+      lazy_pack_field(IsLazyPack(descriptor, options, scc_analyzer)),
       has_required_fields_(
           scc_analyzer->HasRequiredFields(descriptor->message_type())) {
   SetMessageVariables(descriptor, options, implicit_weak_field_, &variables_);

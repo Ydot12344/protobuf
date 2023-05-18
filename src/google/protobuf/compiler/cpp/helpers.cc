@@ -234,7 +234,7 @@ bool IsEagerlyVerifiedLazy(const FieldDescriptor* field, const Options& options,
 
 bool IsLazilyVerifiedLazy(const FieldDescriptor* field,
                           const Options& options) {
-  return field->options().unverified_lazy();
+  return false;
 }
 
 absl::flat_hash_map<absl::string_view, std::string> MessageVars(

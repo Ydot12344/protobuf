@@ -589,6 +589,7 @@ set(protobuf_test_files
   ${protobuf_SOURCE_DIR}/src/google/protobuf/generated_message_reflection_unittest.cc
   ${protobuf_SOURCE_DIR}/src/google/protobuf/generated_message_tctable_lite_test.cc
   ${protobuf_SOURCE_DIR}/src/google/protobuf/inlined_string_field_unittest.cc
+  ${protobuf_SOURCE_DIR}/src/google/protobuf/lazy_packed_field_test.cc
   ${protobuf_SOURCE_DIR}/src/google/protobuf/map_field_test.cc
   ${protobuf_SOURCE_DIR}/src/google/protobuf/map_test.cc
   ${protobuf_SOURCE_DIR}/src/google/protobuf/message_unittest.cc

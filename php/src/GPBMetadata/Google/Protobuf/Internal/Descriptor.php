@@ -188,6 +188,7 @@ class Descriptor
             ->optional('unverified_lazy', \Google\Protobuf\Internal\GPBType::BOOL, 15)
             ->optional('deprecated', \Google\Protobuf\Internal\GPBType::BOOL, 3)
             ->optional('weak', \Google\Protobuf\Internal\GPBType::BOOL, 10)
+            ->optional('lazy_pack', \Google\Protobuf\Internal\GPBType::BOOL, 16)
             ->repeated('uninterpreted_option', \Google\Protobuf\Internal\GPBType::MESSAGE, 999, 'google.protobuf.internal.UninterpretedOption')
             ->finalizeToPool();
 
@@ -271,6 +272,13 @@ class Descriptor
             ->optional('source_file', \Google\Protobuf\Internal\GPBType::STRING, 2)
             ->optional('begin', \Google\Protobuf\Internal\GPBType::INT32, 3)
             ->optional('end', \Google\Protobuf\Internal\GPBType::INT32, 4)
+            ->optional('semantic', \Google\Protobuf\Internal\GPBType::ENUM, 5, 'google.protobuf.internal.GeneratedCodeInfo.Annotation.Semantic')
+            ->finalizeToPool();
+
+        $pool->addEnum('google.protobuf.internal.GeneratedCodeInfo.Annotation.Semantic', \Google\Protobuf\Internal\Semantic::class)
+            ->value("NONE", 0)
+            ->value("SET", 1)
+            ->value("ALIAS", 2)
             ->finalizeToPool();
 
         $pool->finish();

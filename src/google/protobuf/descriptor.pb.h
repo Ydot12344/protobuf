@@ -37,7 +37,7 @@
 // Must be included last.
 #include "google/protobuf/port_def.inc"
 
-#define PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2fdescriptor_2eproto
+#define PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2fdescriptor_2eproto PROTOBUF_EXPORT
 
 PROTOBUF_NAMESPACE_OPEN
 namespace internal {
@@ -46,147 +46,147 @@ class AnyMetadata;
 PROTOBUF_NAMESPACE_CLOSE
 
 // Internal implementation detail -- do not use these members.
-struct TableStruct_google_2fprotobuf_2fdescriptor_2eproto {
+struct PROTOBUF_EXPORT TableStruct_google_2fprotobuf_2fdescriptor_2eproto {
   static const ::uint32_t offsets[];
 };
-extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
+PROTOBUF_EXPORT extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
     descriptor_table_google_2fprotobuf_2fdescriptor_2eproto;
 PROTOBUF_NAMESPACE_OPEN
 class DescriptorProto;
 struct DescriptorProtoDefaultTypeInternal;
-extern DescriptorProtoDefaultTypeInternal _DescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern DescriptorProtoDefaultTypeInternal _DescriptorProto_default_instance_;
 class DescriptorProto_ExtensionRange;
 struct DescriptorProto_ExtensionRangeDefaultTypeInternal;
-extern DescriptorProto_ExtensionRangeDefaultTypeInternal _DescriptorProto_ExtensionRange_default_instance_;
+PROTOBUF_EXPORT extern DescriptorProto_ExtensionRangeDefaultTypeInternal _DescriptorProto_ExtensionRange_default_instance_;
 class DescriptorProto_ReservedRange;
 struct DescriptorProto_ReservedRangeDefaultTypeInternal;
-extern DescriptorProto_ReservedRangeDefaultTypeInternal _DescriptorProto_ReservedRange_default_instance_;
+PROTOBUF_EXPORT extern DescriptorProto_ReservedRangeDefaultTypeInternal _DescriptorProto_ReservedRange_default_instance_;
 class EnumDescriptorProto;
 struct EnumDescriptorProtoDefaultTypeInternal;
-extern EnumDescriptorProtoDefaultTypeInternal _EnumDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern EnumDescriptorProtoDefaultTypeInternal _EnumDescriptorProto_default_instance_;
 class EnumDescriptorProto_EnumReservedRange;
 struct EnumDescriptorProto_EnumReservedRangeDefaultTypeInternal;
-extern EnumDescriptorProto_EnumReservedRangeDefaultTypeInternal _EnumDescriptorProto_EnumReservedRange_default_instance_;
+PROTOBUF_EXPORT extern EnumDescriptorProto_EnumReservedRangeDefaultTypeInternal _EnumDescriptorProto_EnumReservedRange_default_instance_;
 class EnumOptions;
 struct EnumOptionsDefaultTypeInternal;
-extern EnumOptionsDefaultTypeInternal _EnumOptions_default_instance_;
+PROTOBUF_EXPORT extern EnumOptionsDefaultTypeInternal _EnumOptions_default_instance_;
 class EnumValueDescriptorProto;
 struct EnumValueDescriptorProtoDefaultTypeInternal;
-extern EnumValueDescriptorProtoDefaultTypeInternal _EnumValueDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern EnumValueDescriptorProtoDefaultTypeInternal _EnumValueDescriptorProto_default_instance_;
 class EnumValueOptions;
 struct EnumValueOptionsDefaultTypeInternal;
-extern EnumValueOptionsDefaultTypeInternal _EnumValueOptions_default_instance_;
+PROTOBUF_EXPORT extern EnumValueOptionsDefaultTypeInternal _EnumValueOptions_default_instance_;
 class ExtensionRangeOptions;
 struct ExtensionRangeOptionsDefaultTypeInternal;
-extern ExtensionRangeOptionsDefaultTypeInternal _ExtensionRangeOptions_default_instance_;
+PROTOBUF_EXPORT extern ExtensionRangeOptionsDefaultTypeInternal _ExtensionRangeOptions_default_instance_;
 class FieldDescriptorProto;
 struct FieldDescriptorProtoDefaultTypeInternal;
-extern FieldDescriptorProtoDefaultTypeInternal _FieldDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern FieldDescriptorProtoDefaultTypeInternal _FieldDescriptorProto_default_instance_;
 class FieldOptions;
 struct FieldOptionsDefaultTypeInternal;
-extern FieldOptionsDefaultTypeInternal _FieldOptions_default_instance_;
+PROTOBUF_EXPORT extern FieldOptionsDefaultTypeInternal _FieldOptions_default_instance_;
 class FileDescriptorProto;
 struct FileDescriptorProtoDefaultTypeInternal;
-extern FileDescriptorProtoDefaultTypeInternal _FileDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern FileDescriptorProtoDefaultTypeInternal _FileDescriptorProto_default_instance_;
 class FileDescriptorSet;
 struct FileDescriptorSetDefaultTypeInternal;
-extern FileDescriptorSetDefaultTypeInternal _FileDescriptorSet_default_instance_;
+PROTOBUF_EXPORT extern FileDescriptorSetDefaultTypeInternal _FileDescriptorSet_default_instance_;
 class FileOptions;
 struct FileOptionsDefaultTypeInternal;
-extern FileOptionsDefaultTypeInternal _FileOptions_default_instance_;
+PROTOBUF_EXPORT extern FileOptionsDefaultTypeInternal _FileOptions_default_instance_;
 class GeneratedCodeInfo;
 struct GeneratedCodeInfoDefaultTypeInternal;
-extern GeneratedCodeInfoDefaultTypeInternal _GeneratedCodeInfo_default_instance_;
+PROTOBUF_EXPORT extern GeneratedCodeInfoDefaultTypeInternal _GeneratedCodeInfo_default_instance_;
 class GeneratedCodeInfo_Annotation;
 struct GeneratedCodeInfo_AnnotationDefaultTypeInternal;
-extern GeneratedCodeInfo_AnnotationDefaultTypeInternal _GeneratedCodeInfo_Annotation_default_instance_;
+PROTOBUF_EXPORT extern GeneratedCodeInfo_AnnotationDefaultTypeInternal _GeneratedCodeInfo_Annotation_default_instance_;
 class MessageOptions;
 struct MessageOptionsDefaultTypeInternal;
-extern MessageOptionsDefaultTypeInternal _MessageOptions_default_instance_;
+PROTOBUF_EXPORT extern MessageOptionsDefaultTypeInternal _MessageOptions_default_instance_;
 class MethodDescriptorProto;
 struct MethodDescriptorProtoDefaultTypeInternal;
-extern MethodDescriptorProtoDefaultTypeInternal _MethodDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern MethodDescriptorProtoDefaultTypeInternal _MethodDescriptorProto_default_instance_;
 class MethodOptions;
 struct MethodOptionsDefaultTypeInternal;
-extern MethodOptionsDefaultTypeInternal _MethodOptions_default_instance_;
+PROTOBUF_EXPORT extern MethodOptionsDefaultTypeInternal _MethodOptions_default_instance_;
 class OneofDescriptorProto;
 struct OneofDescriptorProtoDefaultTypeInternal;
-extern OneofDescriptorProtoDefaultTypeInternal _OneofDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern OneofDescriptorProtoDefaultTypeInternal _OneofDescriptorProto_default_instance_;
 class OneofOptions;
 struct OneofOptionsDefaultTypeInternal;
-extern OneofOptionsDefaultTypeInternal _OneofOptions_default_instance_;
+PROTOBUF_EXPORT extern OneofOptionsDefaultTypeInternal _OneofOptions_default_instance_;
 class ServiceDescriptorProto;
 struct ServiceDescriptorProtoDefaultTypeInternal;
-extern ServiceDescriptorProtoDefaultTypeInternal _ServiceDescriptorProto_default_instance_;
+PROTOBUF_EXPORT extern ServiceDescriptorProtoDefaultTypeInternal _ServiceDescriptorProto_default_instance_;
 class ServiceOptions;
 struct ServiceOptionsDefaultTypeInternal;
-extern ServiceOptionsDefaultTypeInternal _ServiceOptions_default_instance_;
+PROTOBUF_EXPORT extern ServiceOptionsDefaultTypeInternal _ServiceOptions_default_instance_;
 class SourceCodeInfo;
 struct SourceCodeInfoDefaultTypeInternal;
-extern SourceCodeInfoDefaultTypeInternal _SourceCodeInfo_default_instance_;
+PROTOBUF_EXPORT extern SourceCodeInfoDefaultTypeInternal _SourceCodeInfo_default_instance_;
 class SourceCodeInfo_Location;
 struct SourceCodeInfo_LocationDefaultTypeInternal;
-extern SourceCodeInfo_LocationDefaultTypeInternal _SourceCodeInfo_Location_default_instance_;
+PROTOBUF_EXPORT extern SourceCodeInfo_LocationDefaultTypeInternal _SourceCodeInfo_Location_default_instance_;
 class UninterpretedOption;
 struct UninterpretedOptionDefaultTypeInternal;
-extern UninterpretedOptionDefaultTypeInternal _UninterpretedOption_default_instance_;
+PROTOBUF_EXPORT extern UninterpretedOptionDefaultTypeInternal _UninterpretedOption_default_instance_;
 class UninterpretedOption_NamePart;
 struct UninterpretedOption_NamePartDefaultTypeInternal;
-extern UninterpretedOption_NamePartDefaultTypeInternal _UninterpretedOption_NamePart_default_instance_;
+PROTOBUF_EXPORT extern UninterpretedOption_NamePartDefaultTypeInternal _UninterpretedOption_NamePart_default_instance_;
 template <>
-::PROTOBUF_NAMESPACE_ID::DescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::DescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::DescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::DescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::DescriptorProto_ExtensionRange* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::DescriptorProto_ExtensionRange>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::DescriptorProto_ExtensionRange* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::DescriptorProto_ExtensionRange>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::DescriptorProto_ReservedRange* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::DescriptorProto_ReservedRange>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::DescriptorProto_ReservedRange* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::DescriptorProto_ReservedRange>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto_EnumReservedRange* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto_EnumReservedRange>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto_EnumReservedRange* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumDescriptorProto_EnumReservedRange>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::EnumOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::EnumOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::EnumValueDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumValueDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::EnumValueDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumValueDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::EnumValueOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumValueOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::EnumValueOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::EnumValueOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::ExtensionRangeOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::ExtensionRangeOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::ExtensionRangeOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::ExtensionRangeOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::FieldDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FieldDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::FieldDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FieldDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::FieldOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FieldOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::FieldOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FieldOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::FileDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FileDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::FileDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FileDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::FileDescriptorSet* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FileDescriptorSet>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::FileDescriptorSet* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FileDescriptorSet>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::FileOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FileOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::FileOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::FileOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo_Annotation* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo_Annotation>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo_Annotation* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::GeneratedCodeInfo_Annotation>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::MessageOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::MessageOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::MessageOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::MessageOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::MethodDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::MethodDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::MethodDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::MethodDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::MethodOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::MethodOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::MethodOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::MethodOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::OneofDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::OneofDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::OneofDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::OneofDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::OneofOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::OneofOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::OneofOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::OneofOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::ServiceDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::ServiceDescriptorProto>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::ServiceDescriptorProto* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::ServiceDescriptorProto>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::ServiceOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::ServiceOptions>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::ServiceOptions* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::ServiceOptions>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::SourceCodeInfo* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::SourceCodeInfo>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::SourceCodeInfo* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::SourceCodeInfo>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::SourceCodeInfo_Location* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::SourceCodeInfo_Location>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::SourceCodeInfo_Location* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::SourceCodeInfo_Location>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::UninterpretedOption* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::UninterpretedOption>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::UninterpretedOption* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::UninterpretedOption>(Arena*);
 template <>
-::PROTOBUF_NAMESPACE_ID::UninterpretedOption_NamePart* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::UninterpretedOption_NamePart>(Arena*);
+PROTOBUF_EXPORT ::PROTOBUF_NAMESPACE_ID::UninterpretedOption_NamePart* Arena::CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::UninterpretedOption_NamePart>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 PROTOBUF_NAMESPACE_OPEN
@@ -211,11 +211,11 @@ enum FieldDescriptorProto_Type : int {
   FieldDescriptorProto_Type_TYPE_SINT64 = 18,
 };
 
-bool FieldDescriptorProto_Type_IsValid(int value);
+PROTOBUF_EXPORT bool FieldDescriptorProto_Type_IsValid(int value);
 constexpr FieldDescriptorProto_Type FieldDescriptorProto_Type_Type_MIN = static_cast<FieldDescriptorProto_Type>(1);
 constexpr FieldDescriptorProto_Type FieldDescriptorProto_Type_Type_MAX = static_cast<FieldDescriptorProto_Type>(18);
 constexpr int FieldDescriptorProto_Type_Type_ARRAYSIZE = 18 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 FieldDescriptorProto_Type_descriptor();
 template <typename T>
 const std::string& FieldDescriptorProto_Type_Name(T value) {
@@ -240,11 +240,11 @@ enum FieldDescriptorProto_Label : int {
   FieldDescriptorProto_Label_LABEL_REPEATED = 3,
 };
 
-bool FieldDescriptorProto_Label_IsValid(int value);
+PROTOBUF_EXPORT bool FieldDescriptorProto_Label_IsValid(int value);
 constexpr FieldDescriptorProto_Label FieldDescriptorProto_Label_Label_MIN = static_cast<FieldDescriptorProto_Label>(1);
 constexpr FieldDescriptorProto_Label FieldDescriptorProto_Label_Label_MAX = static_cast<FieldDescriptorProto_Label>(3);
 constexpr int FieldDescriptorProto_Label_Label_ARRAYSIZE = 3 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 FieldDescriptorProto_Label_descriptor();
 template <typename T>
 const std::string& FieldDescriptorProto_Label_Name(T value) {
@@ -269,11 +269,11 @@ enum FileOptions_OptimizeMode : int {
   FileOptions_OptimizeMode_LITE_RUNTIME = 3,
 };
 
-bool FileOptions_OptimizeMode_IsValid(int value);
+PROTOBUF_EXPORT bool FileOptions_OptimizeMode_IsValid(int value);
 constexpr FileOptions_OptimizeMode FileOptions_OptimizeMode_OptimizeMode_MIN = static_cast<FileOptions_OptimizeMode>(1);
 constexpr FileOptions_OptimizeMode FileOptions_OptimizeMode_OptimizeMode_MAX = static_cast<FileOptions_OptimizeMode>(3);
 constexpr int FileOptions_OptimizeMode_OptimizeMode_ARRAYSIZE = 3 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 FileOptions_OptimizeMode_descriptor();
 template <typename T>
 const std::string& FileOptions_OptimizeMode_Name(T value) {
@@ -298,11 +298,11 @@ enum FieldOptions_CType : int {
   FieldOptions_CType_STRING_PIECE = 2,
 };
 
-bool FieldOptions_CType_IsValid(int value);
+PROTOBUF_EXPORT bool FieldOptions_CType_IsValid(int value);
 constexpr FieldOptions_CType FieldOptions_CType_CType_MIN = static_cast<FieldOptions_CType>(0);
 constexpr FieldOptions_CType FieldOptions_CType_CType_MAX = static_cast<FieldOptions_CType>(2);
 constexpr int FieldOptions_CType_CType_ARRAYSIZE = 2 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 FieldOptions_CType_descriptor();
 template <typename T>
 const std::string& FieldOptions_CType_Name(T value) {
@@ -327,11 +327,11 @@ enum FieldOptions_JSType : int {
   FieldOptions_JSType_JS_NUMBER = 2,
 };
 
-bool FieldOptions_JSType_IsValid(int value);
+PROTOBUF_EXPORT bool FieldOptions_JSType_IsValid(int value);
 constexpr FieldOptions_JSType FieldOptions_JSType_JSType_MIN = static_cast<FieldOptions_JSType>(0);
 constexpr FieldOptions_JSType FieldOptions_JSType_JSType_MAX = static_cast<FieldOptions_JSType>(2);
 constexpr int FieldOptions_JSType_JSType_ARRAYSIZE = 2 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 FieldOptions_JSType_descriptor();
 template <typename T>
 const std::string& FieldOptions_JSType_Name(T value) {
@@ -356,11 +356,11 @@ enum MethodOptions_IdempotencyLevel : int {
   MethodOptions_IdempotencyLevel_IDEMPOTENT = 2,
 };
 
-bool MethodOptions_IdempotencyLevel_IsValid(int value);
+PROTOBUF_EXPORT bool MethodOptions_IdempotencyLevel_IsValid(int value);
 constexpr MethodOptions_IdempotencyLevel MethodOptions_IdempotencyLevel_IdempotencyLevel_MIN = static_cast<MethodOptions_IdempotencyLevel>(0);
 constexpr MethodOptions_IdempotencyLevel MethodOptions_IdempotencyLevel_IdempotencyLevel_MAX = static_cast<MethodOptions_IdempotencyLevel>(2);
 constexpr int MethodOptions_IdempotencyLevel_IdempotencyLevel_ARRAYSIZE = 2 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 MethodOptions_IdempotencyLevel_descriptor();
 template <typename T>
 const std::string& MethodOptions_IdempotencyLevel_Name(T value) {
@@ -385,11 +385,11 @@ enum GeneratedCodeInfo_Annotation_Semantic : int {
   GeneratedCodeInfo_Annotation_Semantic_ALIAS = 2,
 };
 
-bool GeneratedCodeInfo_Annotation_Semantic_IsValid(int value);
+PROTOBUF_EXPORT bool GeneratedCodeInfo_Annotation_Semantic_IsValid(int value);
 constexpr GeneratedCodeInfo_Annotation_Semantic GeneratedCodeInfo_Annotation_Semantic_Semantic_MIN = static_cast<GeneratedCodeInfo_Annotation_Semantic>(0);
 constexpr GeneratedCodeInfo_Annotation_Semantic GeneratedCodeInfo_Annotation_Semantic_Semantic_MAX = static_cast<GeneratedCodeInfo_Annotation_Semantic>(2);
 constexpr int GeneratedCodeInfo_Annotation_Semantic_Semantic_ARRAYSIZE = 2 + 1;
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+PROTOBUF_EXPORT const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 GeneratedCodeInfo_Annotation_Semantic_descriptor();
 template <typename T>
 const std::string& GeneratedCodeInfo_Annotation_Semantic_Name(T value) {
@@ -414,7 +414,7 @@ inline bool GeneratedCodeInfo_Annotation_Semantic_Parse(absl::string_view name, 
 
 // -------------------------------------------------------------------
 
-class FileDescriptorSet final :
+class PROTOBUF_EXPORT FileDescriptorSet final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.FileDescriptorSet) */ {
  public:
   inline FileDescriptorSet() : FileDescriptorSet(nullptr) {}
@@ -577,7 +577,7 @@ class FileDescriptorSet final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class FileDescriptorProto final :
+class PROTOBUF_EXPORT FileDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.FileDescriptorProto) */ {
  public:
   inline FileDescriptorProto() : FileDescriptorProto(nullptr) {}
@@ -995,7 +995,7 @@ class FileDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class DescriptorProto_ExtensionRange final :
+class PROTOBUF_EXPORT DescriptorProto_ExtensionRange final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.DescriptorProto.ExtensionRange) */ {
  public:
   inline DescriptorProto_ExtensionRange() : DescriptorProto_ExtensionRange(nullptr) {}
@@ -1189,7 +1189,7 @@ class DescriptorProto_ExtensionRange final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class DescriptorProto_ReservedRange final :
+class PROTOBUF_EXPORT DescriptorProto_ReservedRange final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.DescriptorProto.ReservedRange) */ {
  public:
   inline DescriptorProto_ReservedRange() : DescriptorProto_ReservedRange(nullptr) {}
@@ -1363,7 +1363,7 @@ class DescriptorProto_ReservedRange final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class DescriptorProto final :
+class PROTOBUF_EXPORT DescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.DescriptorProto) */ {
  public:
   inline DescriptorProto() : DescriptorProto(nullptr) {}
@@ -1716,7 +1716,7 @@ class DescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class ExtensionRangeOptions final :
+class PROTOBUF_EXPORT ExtensionRangeOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.ExtensionRangeOptions) */ {
  public:
   inline ExtensionRangeOptions() : ExtensionRangeOptions(nullptr) {}
@@ -2071,7 +2071,7 @@ class ExtensionRangeOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class FieldDescriptorProto final :
+class PROTOBUF_EXPORT FieldDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.FieldDescriptorProto) */ {
  public:
   inline FieldDescriptorProto() : FieldDescriptorProto(nullptr) {}
@@ -2467,7 +2467,7 @@ class FieldDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class OneofDescriptorProto final :
+class PROTOBUF_EXPORT OneofDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.OneofDescriptorProto) */ {
  public:
   inline OneofDescriptorProto() : OneofDescriptorProto(nullptr) {}
@@ -2651,7 +2651,7 @@ class OneofDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class EnumDescriptorProto_EnumReservedRange final :
+class PROTOBUF_EXPORT EnumDescriptorProto_EnumReservedRange final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.EnumDescriptorProto.EnumReservedRange) */ {
  public:
   inline EnumDescriptorProto_EnumReservedRange() : EnumDescriptorProto_EnumReservedRange(nullptr) {}
@@ -2825,7 +2825,7 @@ class EnumDescriptorProto_EnumReservedRange final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class EnumDescriptorProto final :
+class PROTOBUF_EXPORT EnumDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.EnumDescriptorProto) */ {
  public:
   inline EnumDescriptorProto() : EnumDescriptorProto(nullptr) {}
@@ -3077,7 +3077,7 @@ class EnumDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class EnumValueDescriptorProto final :
+class PROTOBUF_EXPORT EnumValueDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.EnumValueDescriptorProto) */ {
  public:
   inline EnumValueDescriptorProto() : EnumValueDescriptorProto(nullptr) {}
@@ -3276,7 +3276,7 @@ class EnumValueDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class ServiceDescriptorProto final :
+class PROTOBUF_EXPORT ServiceDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.ServiceDescriptorProto) */ {
  public:
   inline ServiceDescriptorProto() : ServiceDescriptorProto(nullptr) {}
@@ -3480,7 +3480,7 @@ class ServiceDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class MethodDescriptorProto final :
+class PROTOBUF_EXPORT MethodDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.MethodDescriptorProto) */ {
  public:
   inline MethodDescriptorProto() : MethodDescriptorProto(nullptr) {}
@@ -3734,7 +3734,7 @@ class MethodDescriptorProto final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class FileOptions final :
+class PROTOBUF_EXPORT FileOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.FileOptions) */ {
  public:
   inline FileOptions() : FileOptions(nullptr) {}
@@ -4461,7 +4461,7 @@ class FileOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class MessageOptions final :
+class PROTOBUF_EXPORT MessageOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.MessageOptions) */ {
  public:
   inline MessageOptions() : MessageOptions(nullptr) {}
@@ -4877,7 +4877,7 @@ class MessageOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class FieldOptions final :
+class PROTOBUF_EXPORT FieldOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.FieldOptions) */ {
  public:
   inline FieldOptions() : FieldOptions(nullptr) {}
@@ -5395,7 +5395,7 @@ class FieldOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class OneofOptions final :
+class PROTOBUF_EXPORT OneofOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.OneofOptions) */ {
  public:
   inline OneofOptions() : OneofOptions(nullptr) {}
@@ -5750,7 +5750,7 @@ class OneofOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class EnumOptions final :
+class PROTOBUF_EXPORT EnumOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.EnumOptions) */ {
  public:
   inline EnumOptions() : EnumOptions(nullptr) {}
@@ -6136,7 +6136,7 @@ class EnumOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class EnumValueOptions final :
+class PROTOBUF_EXPORT EnumValueOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.EnumValueOptions) */ {
  public:
   inline EnumValueOptions() : EnumValueOptions(nullptr) {}
@@ -6507,7 +6507,7 @@ class EnumValueOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class ServiceOptions final :
+class PROTOBUF_EXPORT ServiceOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.ServiceOptions) */ {
  public:
   inline ServiceOptions() : ServiceOptions(nullptr) {}
@@ -6878,7 +6878,7 @@ class ServiceOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class MethodOptions final :
+class PROTOBUF_EXPORT MethodOptions final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.MethodOptions) */ {
  public:
   inline MethodOptions() : MethodOptions(nullptr) {}
@@ -7285,7 +7285,7 @@ class MethodOptions final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class UninterpretedOption_NamePart final :
+class PROTOBUF_EXPORT UninterpretedOption_NamePart final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.UninterpretedOption.NamePart) */ {
  public:
   inline UninterpretedOption_NamePart() : UninterpretedOption_NamePart(nullptr) {}
@@ -7467,7 +7467,7 @@ class UninterpretedOption_NamePart final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class UninterpretedOption final :
+class PROTOBUF_EXPORT UninterpretedOption final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.UninterpretedOption) */ {
  public:
   inline UninterpretedOption() : UninterpretedOption(nullptr) {}
@@ -7738,7 +7738,7 @@ class UninterpretedOption final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class SourceCodeInfo_Location final :
+class PROTOBUF_EXPORT SourceCodeInfo_Location final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.SourceCodeInfo.Location) */ {
  public:
   inline SourceCodeInfo_Location() : SourceCodeInfo_Location(nullptr) {}
@@ -7998,7 +7998,7 @@ class SourceCodeInfo_Location final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class SourceCodeInfo final :
+class PROTOBUF_EXPORT SourceCodeInfo final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.SourceCodeInfo) */ {
  public:
   inline SourceCodeInfo() : SourceCodeInfo(nullptr) {}
@@ -8163,7 +8163,7 @@ class SourceCodeInfo final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class GeneratedCodeInfo_Annotation final :
+class PROTOBUF_EXPORT GeneratedCodeInfo_Annotation final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.GeneratedCodeInfo.Annotation) */ {
  public:
   inline GeneratedCodeInfo_Annotation() : GeneratedCodeInfo_Annotation(nullptr) {}
@@ -8418,7 +8418,7 @@ class GeneratedCodeInfo_Annotation final :
   friend struct ::TableStruct_google_2fprotobuf_2fdescriptor_2eproto;
 };// -------------------------------------------------------------------
 
-class GeneratedCodeInfo final :
+class PROTOBUF_EXPORT GeneratedCodeInfo final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.protobuf.GeneratedCodeInfo) */ {
  public:
   inline GeneratedCodeInfo() : GeneratedCodeInfo(nullptr) {}
