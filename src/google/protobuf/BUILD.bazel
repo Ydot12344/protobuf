@@ -504,6 +504,7 @@ filegroup(
     name = "test_proto_srcs",
     srcs = [
         "any_test.proto",
+        "lazy_packed_field_test.proto",
         "map_proto2_unittest.proto",
         "map_unittest.proto",
         "unittest.proto",

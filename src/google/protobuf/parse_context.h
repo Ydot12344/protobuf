@@ -518,8 +518,10 @@ class PROTOBUF_EXPORT ParseContext : public EpsCopyInputStream {
     return ptr;
   }
 
+  std::string ReadAllDataAsString(const char** ptr);
   std::string GetBinaryMessage(const char** ptr);
   std::vector<TLazyRefBuffer> GetBinaryMessageAsBuffersArray(const char** ptr);
+  std::vector<TLazyRefBuffer> ReadAllDataAsBuffersArray(const char** ptr);
 
  private:
   // Out-of-line routine to save space in ParseContext::ParseMessage<T>

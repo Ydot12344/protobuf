@@ -1,0 +1,47 @@
+syntax = "proto3";
+package protobuf_unittest;
+
+message File {
+    optional string Name = 1;
+    optional string Extension = 2;
+    optional string Path = 3;
+    optional int32 ByteSize = 4;
+}
+
+message Folder {
+    optional string Name = 1;
+    repeated File Files = 2;
+    optional string Path = 3;
+    optional uint32 ByteSize = 4;
+}
+
+message FolderLazy {
+    optional string Name = 1;
+    repeated File Files = 2 [lazy_pack = true];
+    optional string Path = 3;
+    optional uint32 ByteSize = 4;
+}
+
+message BigProtoLazy {
+    optional string start_data = 1;
+    optional Folder Folder = 2 [lazy_pack = true];
+    optional string end_data = 3;
+}
+
+message BigProto {
+    optional string start_data = 1;
+    optional Folder Folder = 2;
+    optional string end_data = 3;
+}
+
+message FolderWraper {
+    optional string start_data = 1;
+    optional Folder Folder = 2;
+    optional string end_data = 3;
+}
+
+message LazyFolderLazyWraper {
+    optional string start_data = 1;
+    optional FolderLazy Folder = 2 [lazy_pack = true];
+    optional string end_data = 3;
+}

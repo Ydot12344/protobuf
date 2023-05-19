@@ -18,7 +18,6 @@ namespace protobuf {
 /// @tparam T Message which will be stored in raw form
 template<class T>
 class TLazyField : public MessageLite {
-
 enum class EBinaryDataType {
     STRING = 0,
     LIST_BUFFERS = 1
@@ -54,12 +53,18 @@ public:
     T* Unpack() const;
     
     void MergeFrom(const TLazyField<T>& from);
-private:
+
     const char* _InternalParse(const char* ptr, internal::ParseContext* ctx) override;
+
+    void _InternalParse(std::string&& buff);
+
+    void _InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data);
+
+private:
     uint8_t* _InternalSerialize(uint8_t* ptr, io::EpsCopyOutputStream* stream) const override;
-    void InternalParse(std::string&& buff);
-    void InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data);
     size_t GetBinarySize() const;
+
+protected:
 
 private:
     mutable google::protobuf::Arena* arena = nullptr;
@@ -156,9 +161,9 @@ TLazyField<T>& TLazyField<T>::operator=(const TLazyField<T>& other) {
 template<class T>
 const char* TLazyField<T>::_InternalParse(const char* ptr, internal::ParseContext* ctx) {
     if (ctx->IsDerivedFromReleasableBufferStream()) {
-        InternalParse(ctx->GetBinaryMessageAsBuffersArray(&ptr));
+        _InternalParse(ctx->ReadAllDataAsBuffersArray(&ptr));
     } else {
-        InternalParse(ctx->GetBinaryMessage(&ptr));
+        _InternalParse(ctx->ReadAllDataAsString(&ptr));
     }
     return ptr;
 }
@@ -188,9 +193,6 @@ T* TLazyField<T>::Unpack() const {
         if (BinaryDataType_ == EBinaryDataType::STRING) {
             Value_->ParseFromString(*BinaryData_);
         } else {
-            // TODO: ???
-            // create stream from list<RefCountBuffers> + add ParseFromListBuffers() to avoid copying
-            // optional extra task !!!
             std::string tmp;
             for (const auto& buff : BinaryDataList_) {
                 tmp += std::string(
@@ -256,14 +258,14 @@ TLazyField<T>::~TLazyField() {
 }
 
 template<class T>
-void TLazyField<T>::InternalParse(std::string&& buff) {
+void TLazyField<T>::_InternalParse(std::string&& buff) {
     BinaryData_ = std::make_shared<std::string>(std::move(buff));
     BinaryDataType_ = EBinaryDataType::STRING;
     IsUnpacked_ = false;
 }
 
 template<class T>
-void TLazyField<T>::InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data) {
+void TLazyField<T>::_InternalParse(std::vector<google::protobuf::internal::TLazyRefBuffer> data) {
     BinaryDataList_ = std::move(data);
     BinaryDataType_ = EBinaryDataType::LIST_BUFFERS;
     IsUnpacked_ = false;

@@ -269,6 +269,19 @@ const char* EpsCopyInputStream::InitFrom(io::ZeroCopyInputStream* zcis) {
   return buffer_;
 }
 
+std::string ParseContext::ReadAllDataAsString(const char** ptr) {
+  std::string buff;
+
+  while(!Done(ptr)) {
+    int read_bytes = MaximumReadSize(*ptr);
+    buff.insert(buff.end(), *ptr, *ptr + read_bytes);
+    *ptr += read_bytes;
+  }
+
+  return buff;
+}
+
+
 std::string ParseContext::GetBinaryMessage(const char** ptr) {
   size_t size = google::protobuf::internal::ReadSize(ptr);
    
@@ -283,6 +296,21 @@ std::string ParseContext::GetBinaryMessage(const char** ptr) {
   }
 
   return buff;
+}
+
+std::vector<TLazyRefBuffer> ParseContext::ReadAllDataAsBuffersArray(const char** ptr) {
+  std::vector<TLazyRefBuffer> result;
+
+  while(!Done(ptr)) {
+    io::RefCountBuffer buffer = GetSharedBuffer(*ptr);
+    TLazyRefBuffer list_buffer;
+    list_buffer = buffer;
+    list_buffer.start_offset = (reinterpret_cast<const uint8_t*>(*ptr) - buffer.data.get());
+    result.push_back(list_buffer);
+    *ptr = reinterpret_cast<const char*>(buffer.data.get()) + buffer.size;
+  }
+
+  return result;
 }
 
 std::vector<TLazyRefBuffer> ParseContext::GetBinaryMessageAsBuffersArray(const char** ptr) {
