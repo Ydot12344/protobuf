@@ -209,7 +209,9 @@ bool AllocExpected(const Descriptor* descriptor) {
 bool IsLazyPack(const FieldDescriptor* field, const Options& options,
             MessageSCCAnalyzer* scc_analyzer) {
   bool res = field->options().lazy_pack();
-  GOOGLE_CHECK(!res || (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE));
+  bool only_messages_has_lazy_pack_attr = !res || (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE); 
+  GOOGLE_CHECK(only_messages_has_lazy_pack_attr) << 
+    "\nOnly message type fields can be marked as [lazy_pack=true]!";
   return res;
 }
 
